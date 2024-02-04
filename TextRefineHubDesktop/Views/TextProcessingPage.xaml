@@ -16,9 +16,9 @@
 
         <TextBlock Text="Paste your text below" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1"/>
 
-        <TextBox Width="500" Grid.Row="2" Margin="0,0,0,50"/>
+        <TextBox x:Name="TextBoxControl" Width="500" Grid.Row="2" Margin="0,0,0,50" AcceptsReturn="True"/>
 
-        <Button Content="Process" Grid.Row="2" Margin="0,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.015,0.615" HorizontalAlignment="Center"/>
+        <Button Content="Process" Grid.Row="2" Margin="0,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.015,0.615" HorizontalAlignment="Center" Click="Button_Click"/>
     </Grid>
 
 </Page>
