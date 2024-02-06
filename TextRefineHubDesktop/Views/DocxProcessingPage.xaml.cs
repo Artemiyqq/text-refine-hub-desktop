@@ -13,6 +13,22 @@ namespace TextRefineHubDesktop.Views
     /// </summary>
     public sealed partial class DocxProcessingPage : Page
     {
+        private readonly ContentDialog confirmationDialog = new ContentDialog
+        {
+            Title = "Confirmation",
+            Content = $"Are you sure you want to process that file?",
+            PrimaryButtonText = "Yes",
+            SecondaryButtonText = "No"
+        };
+
+        private readonly ContentDialog chooseAnotherFileDialog = new ContentDialog
+        {
+            Title = "Choose Another File",
+            Content = "Do you want to choose another file?",
+            PrimaryButtonText = "Yes",
+            SecondaryButtonText = "No"
+        };
+
         public DocxProcessingPage()
         {
             InitializeComponent();
@@ -20,10 +36,10 @@ namespace TextRefineHubDesktop.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await chooseFile();
+            await ChooseFile();
         }
 
-        private async Task chooseFile()
+        private async Task ChooseFile()
         {
             FileOpenPicker openPicker = new FileOpenPicker
             {
@@ -37,41 +53,24 @@ namespace TextRefineHubDesktop.Views
 
             if (file != null)
             {
-                var confirmationDialog = new ContentDialog
-                {
-                    Title = "Confirmation",
-                    Content = $"Are you sure you want to process the file: {file.Name}?",
-                    PrimaryButtonText = "Yes",
-                    SecondaryButtonText = "No"
-                };
-
                 var confirmationResult = await confirmationDialog.ShowAsync();
 
                 if (confirmationResult == ContentDialogResult.Primary)
                 {
-                    // User confirmed, you can process the selected file
-                    // Implement your logic here
+                    byte[] processedDocx = await App.DocxService.ProcessDocxAsync(file);
+
+                    await App.DocxService.SaveProcessedDocxAsync(processedDocx, file.Name);
                 }
                 else
                 {
-                    var chooseAnotherFileDialog = new ContentDialog
-                    {
-                        Title = "Choose Another File",
-                        Content = "Do you want to choose another file?",
-                        PrimaryButtonText = "Yes",
-                        SecondaryButtonText = "No"
-                    };
-
                     var chooseAnotherFileDialogResult = await chooseAnotherFileDialog.ShowAsync();
 
                     if (chooseAnotherFileDialogResult == ContentDialogResult.Primary)
                     {
-                        await chooseFile();
+                        await ChooseFile();
                     }
                 }
             }
         }
-
-
     }
 }

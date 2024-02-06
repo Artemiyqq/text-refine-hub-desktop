@@ -15,6 +15,7 @@ namespace TextRefineHubDesktop
     sealed partial class App : Application
     {
         public static ITextProcessingService TextProcessingService { get; } = new TextProcessingService();
+        public static IDocxService DocxService { get; } = new DocxService(new StreamService(), TextProcessingService);
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
