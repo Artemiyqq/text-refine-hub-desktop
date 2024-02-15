@@ -17,11 +17,11 @@
         <!-- Top Bar with Mode Buttons -->
         <StackPanel Orientation="Horizontal" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Center">
             <Button x:Name="btnTextMode" BorderThickness="0" Margin="10" Background="Transparent" Click="SwitchToTextMode">
-            <TextBlock Text="Text" FontSize="16" TextDecorations="Underline"/>
+            <TextBlock Text="Text" FontSize="20" TextDecorations="Underline"/>
         </Button>
 
             <Button x:Name="btnDocxMode" BorderThickness="0" Margin="10" Background="Transparent" Click="SwitchToDocxMode">
-            <TextBlock Text="DOCX" FontSize="16" TextDecorations="Underline"/>
+            <TextBlock Text="DOCX" FontSize="20" TextDecorations="Underline"/>
         </Button>
         </StackPanel>
 

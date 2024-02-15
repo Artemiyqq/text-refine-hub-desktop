@@ -4,21 +4,53 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d">
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Page.Background>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#EEAECAD0" Offset="0" />
+            <GradientStop Color="#9493BAE9" Offset="1" />
+        </LinearGradientBrush>
+    </Page.Background>
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="510">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Paste your text below" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="1"/>
+        <TextBlock Text="Paste your text below" FontSize="25" HorizontalAlignment="Center" Width="503" Grid.Row="0" Padding="5,0,0,0" />
 
-        <TextBox x:Name="TextBoxControl" Width="500" Grid.Row="2" Margin="0,0,0,50" AcceptsReturn="True"/>
+        <TextBox x:Name="TextBoxControl" Width="500" Grid.Row="1" AcceptsReturn="True" Background="White" CornerRadius="15"/>
 
-        <Button Content="Process" Grid.Row="2" Margin="0,250,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.015,0.615" HorizontalAlignment="Center" Click="Button_Click"/>
+        <Button x:Name="button" Content="Process" FontSize="25" Grid.Row="2" HorizontalAlignment="Center" Click="Button_Click" VerticalAlignment="Top" Margin="5" Background="White" CornerRadius="5" BorderBrush="#FF2F2E2E" RequiresPointer="WhenFocused">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}" Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                        To="#EFEFEF" Duration="0:0:0.1" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="Width" From="100" To="80" Duration="0:0:1" />
+                                        <DoubleAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="Height" From="100" To="80" Duration="0:0:1" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 
 </Page>
